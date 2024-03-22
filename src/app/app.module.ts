@@ -10,23 +10,37 @@ import { AuthService } from './auth/service/auth.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ProductsComponent } from './products/products.component';
+
+
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    ProductsComponent
   ],
   imports: [
     ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule, // Ngb bootstrap
+
+    // Angular material modules
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDividerModule,
   ],
   providers: [
     provideClientHydration(),
     provideHttpClient(withInterceptors([authInterceptor])),
-    AuthService,
     provideAnimationsAsync(),
+    AuthService,
   ],
   bootstrap: [AppComponent]
 })
