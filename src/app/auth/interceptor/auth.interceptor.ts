@@ -4,9 +4,8 @@ import { inject } from '@angular/core';
 import { CookieService } from "ngx-cookie-service";
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-    
+
 let idToken = inject(CookieService).get('id_token');
-  //const idToken = localStorage.getItem("id_token");
 
   // Clone the request and add the authorization header
   const authReq = req.clone({

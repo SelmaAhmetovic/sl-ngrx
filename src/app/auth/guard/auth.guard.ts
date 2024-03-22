@@ -15,7 +15,6 @@ export const AuthGuard: CanActivateFn = (
   return inject(AuthService).isLoggedIn()
     ? true
     : inject(Router).createUrlTree(['/login']);
-
 };
 
 // inject function to inject services directly in the code
