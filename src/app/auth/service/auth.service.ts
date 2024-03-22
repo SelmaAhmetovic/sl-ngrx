@@ -4,6 +4,8 @@ import moment from 'moment';
 import { tap } from "rxjs";
 import { environment } from "../../../environments/environment.development";
 import { jwtDecode } from "jwt-decode";
+import { CookieService } from "ngx-cookie-service";
+import exp from "constants";
 
 
 @Injectable()
@@ -11,7 +13,8 @@ export class AuthService {
 
     url = environment.apiUrl + `/auth`;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,
+        public cookieService: CookieService) {
 
     }
 
@@ -35,11 +38,12 @@ export class AuthService {
         
         */
         const expiresAt = moment().add(decodedJwt?.exp,'second');
-
         const role = decodedJwt.data.role
+        this.cookieService.set('id_token', authResult.access_token);
+        this.cookieService.set("expires_at", JSON.stringify(expiresAt.valueOf()));
 
-        localStorage.setItem('id_token', authResult.access_token);
-        localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()) );
+        //localStorage.setItem('id_token', authResult.access_token);
+        //localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()) );
     }     
     
     private getDecodedAccessToken(token: string): any {
@@ -51,12 +55,16 @@ export class AuthService {
       }
 
     logout() {
-        localStorage.removeItem("id_token");
-        localStorage.removeItem("expires_at");
+       // localStorage.removeItem("id_token");
+        //localStorage.removeItem("expires_at");
+        this.cookieService.delete('id_token');
+        this.cookieService.delete('expires_at');
     }
 
     public isLoggedIn() {
-        return moment().isBefore(this.getExpiration());
+        const expiration = this.getExpiration()
+        if(!expiration) return false;
+        return moment().isBefore();
     }
 
     isLoggedOut() {
@@ -64,8 +72,10 @@ export class AuthService {
     }
 
     getExpiration() {
-        const expiration = localStorage.getItem("expires_at");
-        const expiresAt = JSON.parse(expiration ? expiration: '');
+       // const expiration = localStorage.getItem("expires_at");
+       const expiration = this.cookieService.get('expires_at');
+       if(!expiration || expiration === '') return null;
+        const expiresAt = JSON.parse(expiration ? expiration: '{}');
         return moment(expiresAt);
     }    
 }

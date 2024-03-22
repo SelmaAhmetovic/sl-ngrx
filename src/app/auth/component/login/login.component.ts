@@ -23,7 +23,7 @@ export class LoginComponent {
 
   login() {
       const val = this.form.value;
-      
+
       val.email = 'marklyan@gmail.com';
       val.password = 'simple_password';
       if (val.email && val.password) {
@@ -31,7 +31,7 @@ export class LoginComponent {
               .subscribe(
                   () => {
                       console.log("User is logged in");
-                      this.router.navigate(['/']);
+                      this.router.navigate(['/products']);
                   }
               );
       }

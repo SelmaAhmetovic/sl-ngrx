@@ -17,6 +17,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { MatDividerModule } from '@angular/material/divider';
     provideHttpClient(withInterceptors([authInterceptor])),
     provideAnimationsAsync(),
     AuthService,
+    CookieService,
   ],
   bootstrap: [AppComponent]
 })
