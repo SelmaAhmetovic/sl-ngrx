@@ -2,9 +2,8 @@ import { LoginData } from "./login-data";
 import { Metadata } from "./metadata";
 import { Product } from "./product";
 import { User } from "./user";
-
-
 export interface ResponseBase<T> {
+  //data?: T | (T)[];
   data?: (T)[] | null;
   status: number;
   message: string;

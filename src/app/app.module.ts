@@ -18,12 +18,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { CookieService } from 'ngx-cookie-service';
+import { ProductComponent } from './product/product.component';
+import { A11yModule } from '@angular/cdk/a11y';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ProductsComponent
+    ProductsComponent,
+    ProductComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -36,6 +39,7 @@ import { CookieService } from 'ngx-cookie-service';
     MatIconModule,
     MatButtonModule,
     MatDividerModule,
+    A11yModule
   ],
   providers: [
     provideClientHydration(),

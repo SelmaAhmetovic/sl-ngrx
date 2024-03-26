@@ -1,58 +1,61 @@
 
 <div class="container-fluid pt-5">
-    <h1>products</h1>
+    <h1>Products</h1>
     <div class="row">
       <ng-container *ngIf="products$ | async as productsNew">
-        @for(product of productsNew; track product?._id) {
-        <div class="col-12 col-sm-6 col-md-3 pt-2 pe-2">
-          <mat-card
-            class="h-100"
-            tabindex="0"
-            (click)="navigateToProduct(product._id)"
-            (keydown)="checkKeyboardPress($event, product._id)"
-          >
-            <mat-card-header class="mb-3">
-              <mat-card-title>{{ product?.title }}</mat-card-title>
-              <mat-card-subtitle>
-               {{product.createdAt | date: 'dd.MM.yyyy'}}
-              </mat-card-subtitle>
-            </mat-card-header>
-            <img
-  
-                [src]="product?.image? product.image : 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D'"
-                [alt]="product?.image"
-              />
-            <mat-card-content>
-  
-  
-              <p class="py-3">
-                {{ product?.description }}
-              </p>
-  
-              <mat-divider></mat-divider>
-            </mat-card-content>
-            <mat-card-actions>
-  
-              <button
-                mat-button
-                role="button"
-                aria-label="like button"
-              >
-                <mat-icon>thumb_up</mat-icon>
-              </button>
-              <button
-                mat-button
-                role="button"
-                aria-label="share button"
-              >
-                <mat-icon>share</mat-icon>
-              </button>
-            </mat-card-actions>
-          </mat-card>
-        </div>
-        } @empty {
-        <li>There are no items.</li>
-        }
+      <!-- <ng-container @if(isArray(productsNew))> -->
+        @for(product of productsNew; track product?.slug) {
+          <div class="col-12 col-sm-6 col-md-3 pt-2 pe-2" >
+            <mat-card
+              class="h-100"
+              tabindex="0"
+              (click)="navigateToProduct(product.slug)"
+              (keydown)="checkKeyboardPress($event, product.slug)"
+            >
+              <mat-card-header class="mb-3">
+                <mat-card-title>{{ product?.title }}</mat-card-title>
+                <mat-card-subtitle>
+                 {{product?.createdAt | date: 'dd.MM.yyyy'}}
+                </mat-card-subtitle>
+              </mat-card-header>
+              <img
+    
+                  [src]="product?.image? product.image : 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D'"
+                  [alt]="product?.image"
+                />
+              <mat-card-content>
+    
+    
+                <p class="py-3">
+                  {{ product?.description }}
+                </p>
+    
+                <mat-divider></mat-divider>
+              </mat-card-content>
+              <mat-card-actions>
+    
+                <button
+                  mat-button
+                  role="button"
+                  aria-label="like button"
+                >
+                  <mat-icon>thumb_up</mat-icon>
+                </button>
+                <button
+                  mat-button
+                  role="button"
+                  aria-label="share button"
+                >
+                  <mat-icon>share</mat-icon>
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+          } @empty {
+          <li>There are no items.</li>
+          }
+      <!-- </ng-container> -->
+        
       </ng-container>
     </div>
   </div>
